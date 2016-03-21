@@ -1,0 +1,33 @@
+﻿@model GradeWebApp.Models.Chapter
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Chapter Details</h4>
+</div>
+
+<div class="modal-body">
+
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.LabelFor(model => model.BookID,"Book ID: ")
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BookID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChapterDescription)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ChapterDescription)
+        </dd>
+
+    </dl>
+</div>
+
+@Html.Partial("_DetailsOkButton")

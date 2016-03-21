@@ -1,0 +1,105 @@
+﻿@using GradeWebApp.Helpers
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    @*<meta http-equiv="refresh" content="5; URL=http://localhost:1608/Home" />*@
+    <title>Grade Management App</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery","~/bundles/bootstrap", "~/bundles/site")
+    @Scripts.Render("https://www.google.com/jsapi")
+    @*@Scripts.Render("~/bundles/jquery2")*@
+    @Styles.Render("~/Content/dataTablesCSS")
+
+</head>
+
+
+<body>
+    <!--  wrapper -->
+    <div class="container">
+
+        <!-- navbar top -->
+        @*<nav class="navbar navbar-default" role="navigation" style="margin-bottom: 0">*@
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Grade Management App", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div> <!-- /.navbar-header -->
+
+                <div class="navbar-collapse collapse">
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Admin"))
+                        {
+                            <ul class="nav navbar-nav">
+                                @Html.MenuItem("Grades", "Index", "Grade")
+                                @Html.MenuItem("Students", "Index", "Student")
+                                @Html.MenuItem("Books", "Index", "Book")
+                                @Html.MenuItem("Chapters", "Index", "Chapter")
+                                @Html.MenuItem("Users", "Index", "User")
+                                @*@Html.MenuItem("Roles", "Index", "Role")*@
+                            </ul>
+                        }
+                        else if (User.IsInRole("User"))
+                        {
+                            <ul class="nav navbar-nav">
+                                @Html.MenuItem("Grades", "Index", "Grade")
+                                @Html.MenuItem("Students", "Index", "Student")
+                                @Html.MenuItem("Books", "Index", "Book")
+                                @Html.MenuItem("Chapters", "Index", "Chapter")
+                            </ul>
+                        }
+                    }
+
+
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                @*<i class="fa fa-user fa-fw"></i>*@ @User.Identity.Name <span class="caret"></span> @*<i class="fa fa-caret-down"></i>*@
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-user">
+                                <li>
+                                    <a href="/Account/LogOut"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                                </li>
+                            </ul><!-- /.dropdown-user -->
+                        </li> <!-- /.dropdown -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end page-wrapper -->
+    
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    <footer class="footer">
+        @*<div class="container">
+                <p class="pull-left">&copy; @DateTime.Now.Year - <a href="http://www.fabro.pl" target="_blank">Fabro sp.j.</a></p>
+                <p class="pull-right"><a id="scroll-to-top" style="display:none;" href="#" title="Przewiń na początek strony"><span class="glyphicon glyphicon-arrow-up"></span> </a></p>
+            </div>*@
+    </footer>
+
+    @RenderSection("scripts", required: false)
+
+    @Scripts.Render("~/bundle/metisMenu")
+    @Scripts.Render("~/bundles/dataTables")
+    @Scripts.Render("~/bundle/bootbox")
+
+
+</body>
+</html>

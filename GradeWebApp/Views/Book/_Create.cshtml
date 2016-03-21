@@ -1,0 +1,99 @@
+﻿@model GradeWebApp.Models.Book
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Add new Book</h4>
+</div>
+
+<br />
+                    @using (Html.BeginForm())
+                    {
+                        
+                  <div class="form-horizontal">
+                                              
+                        @Html.AntiForgeryToken()
+                        
+                        @Html.ValidationSummary(true)
+                        
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Book_Name, "Book Name: ", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.Book_Name, new { @class = "Book_Name", @autocomplete = "off", autofocus = "autofocus" })
+                                    @Html.ValidationMessageFor(model => model.Book_Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ISBN10, "ISBN-10: ", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.ISBN10, new { @class = "campo", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.ISBN10, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ISBN13, "ISBN-13: ", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.ISBN13, new { @class = "campo", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.ISBN13, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Pages, "Pages: ", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.Pages, new { @class = "Pages", @autocomplete = "off", @type = "number" })
+                                    <span id="errmsg1"></span>
+                                    @Html.ValidationMessageFor(model => model.Pages, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Publisher, "Publisher: ", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.Publisher, new { @class = "campo", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.Publisher, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Language, "Language: ", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.Language, new { @class = "campo", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.Language, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                            @Html.Partial("_SubmitButton")
+           }
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#Pages").keypress('paste input', function (e) {
+
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+
+                $("#errmsg1").html("Digits Only").show().fadeOut("slow");
+                return false;
+            }
+
+        });
+        var num = $("#Pages").val();
+        $("#Pages").on('input', function () {
+            var num = $(this).val();
+
+            if (num < 1) {
+                alert("Invalid digit!");
+                $(this).val('');
+                $(this).focus();
+            }
+        });
+    });
+</script>

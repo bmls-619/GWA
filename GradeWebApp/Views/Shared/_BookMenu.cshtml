@@ -1,0 +1,63 @@
+﻿@*@{
+        ViewBag.Title = "InicioMenu";
+    }
+
+    <h2>InicioMenu</h2>*@
+
+<div class="navbar-default sidebar" role="navigation">
+    <div class="sidebar-nav navbar-collapse">
+        <ul class="nav" id="side-menu">
+
+           @if (User.Identity.IsAuthenticated)
+           {
+
+               if (User.IsInRole("User"))
+               {
+                <li>
+                    <!--<a href="~/Inicio"><i @* class="fa fa-dashboard fa-fw"*@></i>Inicio</a>-->
+                    @Html.ActionLink("Home", "Index", "Home")
+                </li>
+
+                <li class="selected">
+                    @Html.ActionLink("Books", "Index", "Book")
+                </li>
+
+                <li>
+                    @Html.ActionLink("Grades", "Index", "Grade")
+                </li>
+
+                <li>
+                    @Html.ActionLink("Students", "Index", "Student")
+                </li>
+
+               }
+               else if (User.IsInRole("Admin"))
+               {
+                <li>
+                    @Html.ActionLink("Home", "Index", "Home")
+                </li>
+
+                <li class="selected">
+                    @Html.ActionLink("Books", "Index", "Book")
+                </li>
+
+                <li>
+                    @Html.ActionLink("Grades", "Index", "Grade")
+                </li>
+
+                <li>
+                    @Html.ActionLink("Students", "Index", "Student")
+                </li>
+
+                <li>
+                    @Html.ActionLink("Roles", "Index", "Role")
+                </li>
+
+                <li>
+                    @Html.ActionLink("Users", "Index", "User")
+                </li>
+               }
+           }
+        </ul><!-- end side-menu -->
+    </div><!-- end sidebar-collapse -->
+</div> <!-- end navbar side -->

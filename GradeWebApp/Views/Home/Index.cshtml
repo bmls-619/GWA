@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@*@Html.Partial("_DashboardMenu")*@
+
+<br />
+<br />
+
+<!--  page-wrapper -->
+<div id="page-wrapper">
+
+    <div class="row">
+        <!-- Page Header -->
+        <div class="col-lg-12">
+            <h1 class="page-header">Dashboard</h1>
+
+            <div class="row">
+
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                         POINTS ACCUMULATED
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="row">
+
+                            <div class="panel-body">
+
+                                <div id="gradeChart" style="width:600px; height:300px"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*</div>
+                        </div>
+                    </div>*@
+
+            </div><!--End Page Header -->
+        </div>
+    </div>
+
+
+
+@section Scripts{
+
+    <script>
+        $(document).ready(function () {
+            setInterval(function () { cache_clear() }, 100000);//60 seconds
+        });
+        function cache_clear() {
+            window.location.reload(true);
+        }
+    </script>
+
+       <script>
+           var chartData = []; // globar variable for hold chart data
+           google.load("visualization", "1", { packages: ["corechart"] });
+
+           // Here We will fill chartData
+
+           $(document).ready(function () {
+
+
+               $.getJSON('@Url.Action("GradeChart", "Home")', function (result) {
+                   var tdata = new google.visualization.DataTable();
+
+                   tdata.addColumn('string', 'Student');
+                   tdata.addColumn('number', 'Total Points Accumulated');
+
+                   var studentArray = result['student'];
+                   var gradeArray = result['grades'];
+
+                   console.log(result['grades'.length]);
+                   for (var i = 0; i < studentArray.length; i++) {
+                       tdata.addRow([studentArray[i], gradeArray[i]]);
+                   }
+
+                   var options = {
+                       title: "",
+                       pieStartAngle: 100,
+                       bar: { groupWidth: "15%" },
+                       legend: { position: "none" },
+                       //is3D: true,
+                       //pieHole: 0.4,
+                       pointSize: 15,
+                   };
+
+                   var gradeChart = new google.visualization.ColumnChart(document.getElementById('gradeChart'));
+
+                   gradeChart.draw(tdata, options);
+
+               });
+           })
+       </script>
+ }

@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    @*<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />*@
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>Grade Management App</title>
+  
+    @Styles.Render("~/Content/assets/css/style.css")
+    @Styles.Render("~/Content/assets/css/main-style.css")
+    @Styles.Render("~/Content/assets/plugins/pace/pace-theme-big-counter.css")
+    @Styles.Render("~/Content/assets/font-awesome/css/font-awesome.css")
+    @Styles.Render("~/Content/assets/plugins/bootstrap/bootstrap.css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/Scripts/jquery-2.1.1.min.js")
+    @Scripts.Render("~/Scripts/jquery.min.js")
+
+</head>
+
+<body class="body-Login-back">
+
+    @RenderSection("featured", required: false)
+    <section class="">
+        @RenderBody()
+    </section>
+
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>
+
+@Scripts.Render("~/Content/assets/plugins/jquery-1.10.2.js")
+@Scripts.Render("~/Content/assets/plugins/bootstrap/bootstrap.min.js")
+@Scripts.Render("~/Scripts/bootbox.min.js")  
+@Scripts.Render("~/Content/assets/plugins/metisMenu/jquery.metisMenu.js")
+@Scripts.Render("~/Scripts/v.js")

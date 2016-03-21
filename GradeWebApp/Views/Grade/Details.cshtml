@@ -1,0 +1,53 @@
+﻿@model GradeWebApp.Models.Grade
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Grade Details</h4>
+</div>
+
+<div class="modal-body">
+
+        <dl class="dl-horizontal">
+
+            <dt>
+                @Html.DisplayNameFor(model => model.student.Fullname)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.student.Fullname)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.book.Book_Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.book.Book_Name)
+            </dd>
+
+            @*<dt>
+                @Html.DisplayNameFor(model => model.Homework)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Homework)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Excercise)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Excercise)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Participation)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Participation)
+            </dd>*@
+       </dl>
+</div>
+
+@Html.Partial("_DetailsOkButton")

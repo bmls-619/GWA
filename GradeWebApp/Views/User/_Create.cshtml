@@ -1,0 +1,88 @@
+﻿@model GradeWebApp.Models.User
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Add new User</h4>
+</div>
+
+<br />
+
+ @using (Html.BeginForm()){
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+                        
+                        
+<div class="form-horizontal">
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Username, "Username: ", new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Username, new { @class = "campo", @autocomplete = "off", autofocus = "autofocus" })
+                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, "Email: ", new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Email, new { @class = "campo", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, "Password: ", new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Password, new { @class = "campo", @autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RepeatPassword, "Repeat Password: ", new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.RepeatPassword, new { @class = "campo", @autocomplete = "off"})
+                @Html.ValidationMessageFor(model => model.RepeatPassword, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, "Firstname: ", new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.FirstName, new { @class = "campo", @autocomplete = "off"})
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, "Lastname: ", new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.LastName, new { @class = "campo", @autocomplete = "off"})
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsActive, "IsActive: ", new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.IsActive, new { @class = "campo", @autocomplete = "off"})
+                @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+    </div>
+
+     @Html.Partial("_SubmitButton")
+   }
+
+@*<div class="editor-label">
+        @Html.LabelFor(model => model.CreateDate)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.CreateDate)
+        @Html.ValidationMessageFor(model => model.CreateDate)
+    </div>*@

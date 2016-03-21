@@ -1,0 +1,203 @@
+﻿@model GradeWebApp.Models.Grade
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Add new Grade</h4>
+</div>
+
+<div class="modal-header">
+    <span class="modal-title text-danger">*The "SAVE" Button will be activated after the input fields are filled out</span>
+</div>
+
+<br />
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+       if(ViewBag.studentExist != null)
+       {
+           <script>
+               $(document).ready(function () {
+
+                   bootbox.alert('<br/><div class="alert alert-danger">@ViewBag.studentExist</div>')
+
+               });
+           </script>
+       }
+
+       if (ViewBag.assignedChapter != null)
+       {
+           <script>
+               $(document).ready(function () {
+
+                   bootbox.alert('<br/><div class="alert alert-danger">@ViewBag.assignedChapter</div>')
+
+               });
+           </script>
+        }
+    
+     <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Student_ID, "Student ID: ", new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @*@Html.DropDownListFor(model => model.Student_ID, null, "--Seleccionar--", new { @class = "campo", autofocus = "autofocus" })*@
+                @Html.TextBoxFor(model => model.Student_ID, new { @class = "campo", @autocomplete = "off", autofocus = "autofocus", @type = "number" })
+                @*<span id="errmsg1"></span>*@
+                @Html.ValidationMessageFor(model => model.Student_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+         <div class="form-group">
+             @Html.Label("StudentDetail", "Student Detail: ", new { @class = "control-label col-md-3" })
+             <div class="col-md-9">
+                 @Html.TextArea("student_detail", new { @class = "StudentDetail", @readonly = "readonly" })
+             </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Book_ID, "Book: ", new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.DropDownListFor(model => model.Book_ID, null, "--Seleccionar--", new { @class = "campo" })
+                @Html.ValidationMessageFor(model => model.Book_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+         <div class="form-group">
+             @Html.LabelFor(model => model.Chapter_ID, "Chapter: ", htmlAttributes: new { @class = "control-label col-md-3" })
+             <div class="col-md-9">
+                 @*@Html.DropDownListFor(model => model.Chapter_ID, null, "--Seleccionar--", new { @class = "campo" })*@
+                 @Html.DropDownListFor(model => model.Chapter_ID, new SelectList(Enumerable.Empty<SelectListItem>(), "ChapterID", "ChapterDescription"), "Seleccionar", new { @class = "campo" })
+                 @Html.ValidationMessageFor(model => model.Chapter_ID, "", new { @class = "text-danger" })
+             </div>
+         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Homework, "Homework: ", new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Homework, new { @class = "Homework", @autocomplete = "off", placeholder = "0.00"})
+                @*<span id="errmsg2"></span>*@
+                @Html.ValidationMessageFor(model => model.Homework, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Excercise, "Exercise: ", new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Excercise, new { @class = "Excercise", @autocomplete = "off", placeholder = "0.00"})
+                @*<span id="errmsg3"></span>*@
+                @Html.ValidationMessageFor(model => model.Excercise, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Participation, "Participation: ", new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.Participation, new { @class = "Participation", @autocomplete = "off", placeholder = "0.00" })
+                @*<span id="errmsg4"></span>*@
+                @Html.ValidationMessageFor(model => model.Participation, "", new { @class = "text-danger" })
+            </div>
+        </div>
+     </div>
+
+       @*@Html.Partial("_SubmitButton")*@
+
+    <div class="modal-footer">
+        <button class="btn btn-danger" data-dismiss="modal" >CANCEL</button>
+        <input type="submit" value="Save" class="btn btn-primary" disabled="disabled" id="SaveGrade"/>
+    </div>
+}
+
+
+
+<script type="text/javascript">
+    //Cascading dropdownlist
+    $(document).ready(function () {
+
+        $("#Book_ID").change(function () {
+
+            //clear drop down of old chapters
+            $("#Chapter_ID").empty();
+            $('#Chapter_ID').append('<option>--Seleccionar--</option>');
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("SelectChapter")',
+                dataType: 'json',
+                data: { id: $("#Book_ID").val() },
+                success: function (chapters)
+                {
+                    $.each(eval(chapters), function (i, chapter) {
+
+                        $("#Chapter_ID").append('<option value="'
+                            + chapter.ChapterID + '">'
+                            + chapter.ChapterDescription + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    bootbox.alert('Failed to retrieve chapter(s).' + ex.responseText);
+                }
+            });
+            return false;
+        })
+    });
+
+</script>
+
+<script type="text/javascript">
+
+    //ver Datos de Estudiante al momento asociar books, chapters and grades
+    $(document).ready(function () {
+        $("#Student_ID").change(function () {
+            idSelected = $(this).val();
+            $.ajax({
+                url: '@Url.Action("StudentDetail")' + "?studentID=" + idSelected,
+                type: "POST",
+                success: function (data) {
+                    var dato = data;
+                    console.log(data);
+                    $('#student_detail').val(dato);
+                },
+                error: function (ex) {
+                    bootbox.alert('Failed to retrieve chapter(s).' + ex.responseText);
+                }
+            });
+        });
+    });
+
+</script>
+
+<script type="text/javascript">
+    //Only to allow digits
+    $(document).ready(function () {
+        //called when key is pressed in textbox
+        $("#Student_ID").keypress('paste input',function (e) {
+            //if the letter is not digit then display error and don't type anything
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //display error message
+                $("#errmsg1").html("Digits Only").show().fadeOut("slow");
+                return false;
+            }
+        });
+
+        var num = $("#Student_ID").val();
+        $("#Student_ID").on('input', function () {
+            var num = $(this).val();
+
+            if(num < 1)
+            {
+                alert("Invalid digit!");
+                $(this).val('');
+                $(this).focus();
+            }
+        });
+
+    });
+</script>
+
+@Scripts.Render("~/bundle/v")

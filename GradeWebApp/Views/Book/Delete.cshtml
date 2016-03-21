@@ -1,0 +1,73 @@
+﻿@model GradeWebApp.Models.Book
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+@*<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>*@
+
+@Html.Partial("_BookMenu")
+@Html.Partial("_DeletingBodyLayout")
+
+<table class="table table-striped table-bordered table-hover">
+
+    <thead>
+        <tr>
+            <th>@Html.LabelFor(model => model.Book_Name)</th>
+            <th>@Html.LabelFor(model => model.Isbn_ID)</th>
+            <th>@Html.LabelFor(model => model.Pages)</th>
+            <th>@Html.LabelFor(model => model.Publisher)</th>
+            <th>@Html.LabelFor(model => model.Language)</th>
+        </tr>
+    </thead>
+
+    <tr>
+        <td>
+            @Html.DisplayFor(model => model.Book_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Isbn_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Pages)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Publisher)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Language)
+        </td>
+    </tr>
+
+</table>
+
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <div class="modal-footer">
+        <input type="submit" value="Delete" class="btn btn-primary" /> |
+        @Html.ActionLink("Cancel", "Index", "Book", null, new { @class = "btn btn-danger" })
+    </div>
+}
+
+@Html.Partial("_DeletingBodyLayout2")
+
+@*<fieldset>
+        <legend>Book</legend>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.Book_Description)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Book_Description)
+        </div>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.Book_Topic)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Book_Topic)
+        </div>
+    </fieldset>*@

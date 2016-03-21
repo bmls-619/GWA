@@ -1,0 +1,72 @@
+﻿@model GradeWebApp.Models.Book
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">Edit Book</h4>
+</div>
+
+<br />
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    
+ <div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.BookId)
+
+                          <div class="form-group">
+                                @Html.LabelFor(model => model.Book_Name, "Book Name: ", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.Book_Name, new { @class = "Book_Name", @autocomplete = "off", autofocus = "autofocus" })
+                                    @Html.ValidationMessageFor(model => model.Book_Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ISBN10, "ISBN-10: ", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.ISBN10, new { @class = "campo", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.ISBN10, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ISBN13, "ISBN-13: ", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.ISBN13, new { @class = "campo", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.ISBN13, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Pages, "Pages: ", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.Pages, new { @class = "Pages", @autocomplete = "off", @type = "number" })
+                                    @Html.ValidationMessageFor(model => model.Pages, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Publisher, "Publisher: ", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.Publisher, new { @class = "campo", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.Publisher, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Language, "Language: ", htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.Language, new { @class = "campo", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.Language, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+     </div>
+
+          @Html.Partial("_SubmitButton")
+}

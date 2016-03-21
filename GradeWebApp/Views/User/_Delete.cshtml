@@ -1,0 +1,116 @@
+﻿@model GradeWebApp.Models.User
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+@*<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>*@
+@Html.Partial("_UserMenu")
+@Html.Partial("_DeletingBodyLayout")
+
+
+<table class="table table-striped table-bordered table-hover">
+
+    <thead>
+        <tr>
+            <th>@Html.LabelFor(model => model.Username)</th>
+            <th>@Html.LabelFor(model => model.Email)</th>
+            <th>@Html.LabelFor(model => model.FirstName)</th>
+            <th>@Html.LabelFor(model => model.LastName)</th>
+            <th>@Html.LabelFor(model => model.IsActive)</th>
+        </tr>
+    </thead>
+
+    @*<div class="display-field">*@
+    <tr>
+        <td>
+            @Html.DisplayFor(model => model.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.IsActive)
+        </td>
+    </tr>
+
+</table>
+
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+
+    <div class="modal-footer">
+        <input type="submit" value="Delete" class="btn btn-primary" /> |
+        @Html.ActionLink("Cancel", "Index","User",null, new { @class = "btn btn-danger" })
+     </div>
+}
+@Html.Partial("_DeletingBodyLayout2")
+
+@*<fieldset>
+        <legend>User</legend>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.Username)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Username)
+        </div>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.Email)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Email)
+        </div>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.Password)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Password)
+        </div>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.RepeatPassword)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.RepeatPassword)
+        </div>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.FirstName)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.FirstName)
+        </div>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.LastName)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.LastName)
+        </div>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.IsActive)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.IsActive)
+        </div>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.CreateDate)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.CreateDate)
+        </div>
+    </fieldset>*@

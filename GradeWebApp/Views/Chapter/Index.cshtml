@@ -1,0 +1,72 @@
+﻿@model IEnumerable<GradeWebApp.Models.Chapter>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@Html.Partial("_IndexLayout")
+
+<div class="panel panel-primary">
+
+    <div class="panel-heading">Chapters</div>
+
+    <div class="panel-body">
+
+        <div class="dataTable_wrapper">
+
+            <div class="panel-body ">
+                @Html.ActionLink("Add Chapter", "Create", "Chapter", null, new { data_modal = "", id = "btnCreate", @class = "btn btn-small btn-primary pull-left" })
+            </div>
+
+            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.LabelFor(model => model.First().book.Book_Name,"Book ID")
+                        </th>
+                        <th>
+                            @Html.LabelFor(model => model.First().ChapterDescription, "Chapter")
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BookID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ChapterDescription)
+                        </td>
+                        <td>
+                            @Html.Partial("_ActionMenuLayout")
+
+                            <li>@Html.ActionLink("Details", "Details", new { id = item.ChapterID }, new { data_modal = "" })</li>
+                            <li>@Html.ActionLink("Edit", "Edit", new { id = item.ChapterID }, new { data_modal = "" })</li>
+
+                            @if(User.Identity.IsAuthenticated)
+                            { 
+                                
+                              if(User.IsInRole("Admin"))
+                              { 
+                                  
+                                <li class="divider"></li>
+                                <li>@Html.ActionLink("Delete", "Delete", new { id = item.ChapterID }, new { data_modal = "" })</li>
+                                
+                              }
+                             
+                            }
+                            @Html.Partial("_ActionMenuLayout2")
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+            @Html.Partial("_IndexLayout2")
+
+            @section scripts{
+                @Scripts.Render("~/bundles/modalform")
+            }

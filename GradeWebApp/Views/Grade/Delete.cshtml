@@ -1,0 +1,93 @@
+﻿@model GradeWebApp.Models.Grade
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+@*<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>*@
+
+@Html.Partial("_GradeMenu")
+@Html.Partial("_DeletingBodyLayout")
+
+<table class="table table-striped table-bordered table-hover">
+
+    <thead>
+        <tr>
+            <th>@Html.LabelFor(model => model.student.Name)</th>
+            <th>@Html.LabelFor(model => model.book.Book_Description)</th>
+            <th>@Html.LabelFor(model => model.Homework)</th>
+            <th>@Html.LabelFor(model => model.Excercise)</th>
+            <th>@Html.LabelFor(model => model.Participation)</th>
+        </tr>
+    </thead>
+
+    <tr>
+        <td>
+            @Html.DisplayFor(model => model.student.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.book.Book_Description)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Homework)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Excercise)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model.Participation)
+        </td>
+    </tr>
+
+</table>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" class="btn btn-primary" /> |
+        @Html.ActionLink("Back to List", "Index", "Grade", null, new {@class="btn btn-danger" })
+    </p>
+}
+
+@Html.Partial("_DeletingBodyLayout2")
+
+@*<fieldset>
+        <legend>Grade</legend>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.student.Name)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.student.Name)
+        </div>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.book.Book_Description)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.book.Book_Description)
+        </div>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.Homework)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Homework)
+        </div>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.Excercise)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Excercise)
+        </div>
+
+        <div class="display-label">
+             @Html.DisplayNameFor(model => model.Participation)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Participation)
+        </div>
+    </fieldset>*@

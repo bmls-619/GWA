@@ -1,0 +1,88 @@
+﻿@model IEnumerable<GradeWebApp.Models.Grade>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@Html.Partial("_IndexLayout")
+
+<div class="panel panel-primary">
+
+    <div class="panel-heading">Grades</div>
+
+    <div class="panel-body">
+
+        <div class="dataTable_wrapper">
+
+            <div class="panel-body ">
+                @Html.ActionLink("Add Grade", "Create", "Grade", null, new { data_modal = "", id = "btnCreate", @class = "btn btn-small btn-primary pull-left" })
+            </div>
+
+            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.LabelFor(model => model.First().student.Name, "Fullname")
+                        </th>
+                        <th>
+                            @Html.LabelFor(model => model.First().book.Book_Name, "Book Description")
+                        </th>
+                        <th>
+                            @Html.LabelFor(model => model.First().Chapter_ID, "Chapter ")
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Homework)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Excercise)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Participation)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.student.Fullname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.book.Book_Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.chapter.ChapterDescription)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Homework)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Excercise)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Participation)
+                        </td>
+                        <td>
+                            @Html.Partial("_ActionMenuLayout")
+
+                            @*<li>@Html.ActionLink("Details", "Details", new { id = item.GradeId }, new { data_modal = "" })</li>*@
+                            <li>@Html.ActionLink("Edit", "Edit", new { id = item.GradeId }, new { data_modal = "" })</li>
+                            @*<li class="divider"></li>
+                                <li>@Html.ActionLink("Delete", "Delete", new { id = item.BookId }, new { data_modal = "" })</li>*@
+
+                            @Html.Partial("_ActionMenuLayout2")
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+            @Html.Partial("_IndexLayout2")
+
+
+            @section scripts{
+                @Scripts.Render("~/bundles/modalform")             
+            }

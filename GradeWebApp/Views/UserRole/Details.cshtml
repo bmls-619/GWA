@@ -1,0 +1,29 @@
+﻿@model GradeWebApp.Models.UserRole
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>UserRole</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.user.Username)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.user.Username)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.role.RoleName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.role.RoleName)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.UserRoleId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
